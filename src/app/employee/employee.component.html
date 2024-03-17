@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="mt-2">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>SL No</td>
+          <td>Id</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Domain Name</td>
+          <td>Status</td>
+        </tr>
+      </thead>
+      <tbody *ngFor="let emp of empData; let i = index">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.domain_name }}</td>
+          <td>{{ emp.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item">
+        <span class="page-link" (click)="previousPage()"
+          >Previous</span
+        >
+      </li>
+      <span *ngFor="let currPage of pageIndexes">
+        <li class="page-item" [ngClass]="{ active: pageNumber == currPage }">
+          <span class="page-link" (click)="selectPage(currPage)">{{ currPage + 1 }}</span>
+        </li>
+      </span>
+      <li class="page-item">
+        <span class="page-link" (click)="nextPage()">Next</span>
+      </li>
+      <li class="page-item">
+        records per Page
+        <select
+          name="pageSize"
+          id=""
+          [(ngModel)]="pageSize"
+          (change)="getPagedData()"
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </li>
+    </ul>
+  </nav>
+</div>
