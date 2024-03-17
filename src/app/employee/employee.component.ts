@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { EmployeeService } from '../Services/employee.service';
 import { Employee } from '../Services/Employee';
 
@@ -16,9 +16,29 @@ export class EmployeeComponent implements OnInit {
   pageNumber=0;
   totalNumberOfPages=0;
   pageIndexes:any[]=[];
+   searchText:string=""
 
   ngOnInit(): void {
    this.getPagedData();
+  }
+  getSearchedData(){
+    
+    this.employeeService.searchEmployee(this.pageNumber,this.pageSize,this.searchText).subscribe({
+      next:(resp:any)=>{
+        console.log("response---",resp);
+        this.empData=resp.content;
+        this.totalNumberOfPages=resp.totalPages;
+        this.pageIndexes=[];
+        for(let index=0;index<resp.totalPages;index++){
+          this.pageIndexes.push(index);
+        }
+        
+      },
+      error:(err:any)=>{
+        console.log("Error----");
+        
+      }
+    })
   }
 
   getPagedData(){

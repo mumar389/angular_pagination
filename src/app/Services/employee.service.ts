@@ -16,4 +16,14 @@ export class EmployeeService{
             }
         })
     }
+
+    searchEmployee(pageNumber:any,pageSize:any,name:string){
+        return this.http.get("http://localhost:8080/api/search",{
+            params:{
+                pageNumber:pageNumber,
+                pageSize:pageSize,
+                name:name
+            }
+        })
+    }
 }
